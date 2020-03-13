@@ -1,4 +1,4 @@
-# Carbon Core
+# Carbon Core ![Carbon Core CI Build](https://github.com/martin-bucinskas/carbon-core/workflows/Carbon%20Core%20CI/badge.svg)
 
 Carbon Core is the core service of Carbon POS.
 It is built on top of Spring Boot.
