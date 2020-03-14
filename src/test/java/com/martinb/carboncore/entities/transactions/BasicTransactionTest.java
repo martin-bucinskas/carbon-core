@@ -1,7 +1,6 @@
 package com.martinb.carboncore.entities.transactions;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,8 +8,6 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.text.MatchesPattern.matchesPattern;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class BasicTransactionTest {
 
@@ -38,6 +35,7 @@ public class BasicTransactionTest {
 
     @Test
     public void commitChangesToCommittedWithNewTransactionTest() throws Exception {
+
         BasicTransaction<String> basicTransaction = new BasicTransaction<String>() {};
 
         String transactionId = basicTransaction.getTransactionId();
@@ -48,6 +46,7 @@ public class BasicTransactionTest {
 
     @Test
     public void commitThrowsAnExceptionAfterCommittingMultipleTimesTest() throws Exception {
+
         BasicTransaction<String> basicTransaction = new BasicTransaction<String>() {};
 
         String transactionId = basicTransaction.getTransactionId();
@@ -59,6 +58,7 @@ public class BasicTransactionTest {
 
     @Test
     public void commitThrowsExceptionOnIllegalStates() {
+
         BasicTransaction<String> basicTransaction = new BasicTransaction<String>() {};
 
         List<TransactionState> illegalStates = Arrays.asList(
@@ -75,6 +75,7 @@ public class BasicTransactionTest {
 
     @Test
     public void addObjectToTransaction() {
+
         BasicTransaction<String> basicTransaction = new BasicTransaction<String>() {};
         TransactionObject<String> transactionObject = new TransactionObject<>("test");
 
