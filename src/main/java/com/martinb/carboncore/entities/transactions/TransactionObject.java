@@ -22,9 +22,9 @@ public class TransactionObject<T> {
 
     private String generateObjectId() {
         Random random = new Random();
-        long randomLong = random.nextLong();
-        int randomInt = random.nextInt(65565);
-        return "tx-" + randomInt + "-" + randomLong;
+        long randomLong = Math.abs(random.nextLong());
+        int randomInt = Math.abs(random.nextInt(65565));
+        return "tx-obj-" + randomInt + "-" + randomLong;
     }
 
     @Override

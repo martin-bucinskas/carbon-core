@@ -1,33 +1,40 @@
 package com.martinb.carboncore.entities.transactions;
 
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.*;
 
-public abstract class BasicTransaction implements Transaction {
+public abstract class BasicTransaction<T> implements Transaction {
 
     private String transactionId;
     private TransactionState transactionState;
-    private LinkedList<TransactionObject<?>> transactionObjects;
+    private LinkedList<TransactionObject<T>> transactionObjects;
+
+    private List<TransactionState> illegalStates = Arrays.asList(
+        TransactionState.COMMITTING,
+        TransactionState.COMMITTED,
+        TransactionState.FAILED
+    );
 
     public BasicTransaction() {
         transactionId = generateTransactionId();
         transactionState = TransactionState.DRAFT;
-        transactionObjects = new LinkedList<TransactionObject<?>>();
+        transactionObjects = new LinkedList<TransactionObject<T>>();
     }
 
-    public void addToTransaction(TransactionObject<?> transactionObject) {
+    public void addToTransaction(TransactionObject<T> transactionObject) {
         transactionObjects.add(transactionObject);
     }
 
-    public LinkedList<TransactionObject<?>> getTransactionObjects() {
+    public void setTransactionState(TransactionState transactionState) {
+        this.transactionState = transactionState;
+    }
+
+    public LinkedList<TransactionObject<T>> getTransactionObjects() {
         return transactionObjects;
     }
 
     @Override
     public String commit() throws Exception {
-        if (transactionState == TransactionState.COMMITTING
-            || transactionState == TransactionState.COMMITTED
-            || transactionState == TransactionState.FAILED) {
+        if (illegalStates.contains(transactionState)) {
             throw new Exception("The transaction `" + transactionId + "` is currently in the state: `" + transactionState.toString().toUpperCase() + "`");
         }
 
@@ -53,13 +60,17 @@ public abstract class BasicTransaction implements Transaction {
     @Override
     public String generateTransactionId() {
         Random random = new Random();
-        long randomLong = random.nextLong();
-        int randomInt = random.nextInt(65565);
+        long randomLong = Math.abs(random.nextLong());
+        int randomInt = Math.abs(random.nextInt(65565));
         return "tx-" + randomInt + "-" + randomLong;
     }
 
     @Override
     public String toString() {
+        return transactionId;
+    }
+
+    public String getTransactionId() {
         return transactionId;
     }
 }

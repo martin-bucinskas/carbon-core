@@ -9,10 +9,6 @@ public class CarbonCoreApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CarbonCoreApplication.class, args);
-
-		BasicTransaction basicTx = new BasicTransaction() {};
-
-		System.out.println(basicTx.toString());
 	}
 
 }
