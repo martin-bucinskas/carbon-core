@@ -1,10 +1,15 @@
 package com.martinb.carboncore.entities.transactions;
 
+import com.martinb.carboncore.utils.DateTime;
+import com.martinb.carboncore.utils.DateTimeImpl;
+
 import java.util.*;
 
-public abstract class BasicTransaction<T> implements Transaction {
+public abstract class BasicTransaction<T> implements Transaction<T> {
 
-    private String transactionId;
+    private final String transactionId;
+    private final DateTime transactionDate;
+
     private TransactionState transactionState;
     private LinkedList<TransactionObject<T>> transactionObjects;
 
@@ -14,10 +19,11 @@ public abstract class BasicTransaction<T> implements Transaction {
         TransactionState.FAILED
     );
 
-    public BasicTransaction() {
+    public BasicTransaction(final DateTime dateTime) {
         transactionId = generateTransactionId();
         transactionState = TransactionState.DRAFT;
         transactionObjects = new LinkedList<TransactionObject<T>>();
+        transactionDate = dateTime;
     }
 
     public void addToTransaction(TransactionObject<T> transactionObject) {
@@ -33,6 +39,10 @@ public abstract class BasicTransaction<T> implements Transaction {
         return transactionObjects;
     }
 
+    public abstract void preCommit();
+
+    public abstract void postCommit();
+
     @Override
     public String commit() throws Exception {
         if (illegalStates.contains(transactionState)) {
@@ -41,9 +51,11 @@ public abstract class BasicTransaction<T> implements Transaction {
 
         transactionState = TransactionState.COMMITTING;
 
-        // Insert business logic here.
+        preCommit();
 
         transactionState = TransactionState.COMMITTED;
+
+        postCommit();
 
         return transactionId;
     }
@@ -67,12 +79,11 @@ public abstract class BasicTransaction<T> implements Transaction {
     }
 
     @Override
-    public String toString() {
+    public String getTransactionId() {
         return transactionId;
     }
 
-    @Override
-    public String getTransactionId() {
-        return transactionId;
+    public DateTime getTransactionDate() {
+        return transactionDate;
     }
 }

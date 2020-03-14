@@ -5,22 +5,25 @@ import java.util.HashMap;
 
 public class Ledger {
 
-    private final HashMap<Date, Transaction> transactionMap;
+    private final HashMap<String, Transaction<?>> transactionMap;
 
     public Ledger() {
-        transactionMap = new HashMap<Date, Transaction>();
+        transactionMap = new HashMap<String, Transaction<?>>();
     }
 
-    public HashMap<Date, Transaction> getTransactionMap() {
+    public HashMap<String, Transaction<?>> getTransactionMap() {
         return transactionMap;
     }
 
-    public void addTransaction(Transaction transaction) {
-        Date date = new Date();
-        transactionMap.put(date, transaction);
+    public void addTransaction(Transaction<?> transaction) {
+        transactionMap.put(transaction.getTransactionId(), transaction);
     }
 
-    public void addTransaction(Date date, Transaction transaction) {
-        transactionMap.put(date, transaction);
+    public void addTransaction(String transactionId, Transaction<?> transaction) {
+        transactionMap.put(transactionId, transaction);
+    }
+
+    public void removeTransaction(String transactionId) {
+        transactionMap.remove(transactionId);
     }
 }

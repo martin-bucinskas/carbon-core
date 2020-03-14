@@ -29,6 +29,6 @@ public class TransactionObject<T> {
 
     @Override
     public String toString() {
-        return "[" + objectId + "]: " + object.toString();
+        return "[" + getObjectId() + "]: " + object.toString();
     }
 }
