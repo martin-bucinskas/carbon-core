@@ -24,6 +24,7 @@ public abstract class BasicTransaction<T> implements Transaction {
         transactionObjects.add(transactionObject);
     }
 
+    @Override
     public void setTransactionState(TransactionState transactionState) {
         this.transactionState = transactionState;
     }
@@ -70,6 +71,7 @@ public abstract class BasicTransaction<T> implements Transaction {
         return transactionId;
     }
 
+    @Override
     public String getTransactionId() {
         return transactionId;
     }
