@@ -2,11 +2,13 @@ plugins {
 	id 'org.springframework.boot' version '2.2.5.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id 'info.solidsoft.pitest' version '1.4.7'
 }
 
 group = 'com.martinb'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+build.dependsOn 'pitest'
 
 repositories {
 	mavenCentral()
@@ -22,4 +24,13 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+pitest {
+	junit5PluginVersion = '0.12'
+	targetClasses = ['com.martinb.carboncore.*']
+	threads = 4
+	outputFormats = ['XML', 'HTML']
+	timestampedReports = false
+	jvmArgs = ['-Xmx1024m']
 }
