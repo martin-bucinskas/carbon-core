@@ -9,16 +9,16 @@ public class TransactionStateTest {
     @Test
     public void hasCorrectValues() {
 
-        assertEquals("draft", TransactionStatus.DRAFT.toString());
-        assertEquals("committing", TransactionStatus.COMMITTING.toString());
-        assertEquals("committed", TransactionStatus.COMMITTED.toString());
-        assertEquals("failed", TransactionStatus.FAILED.toString());
-        assertEquals("unknown", TransactionStatus.UNKNOWN.toString());
+        assertEquals("draft", TransactionState.DRAFT.toString());
+        assertEquals("committing", TransactionState.COMMITTING.toString());
+        assertEquals("committed", TransactionState.COMMITTED.toString());
+        assertEquals("failed", TransactionState.FAILED.toString());
+        assertEquals("unknown", TransactionState.UNKNOWN.toString());
     }
 
     @Test
     public void sanityCheck() {
 
-        assertEquals(5, TransactionStatus.values().length);
+        assertEquals(5, TransactionState.values().length);
     }
 }

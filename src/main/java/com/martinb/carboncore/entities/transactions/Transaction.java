@@ -1,10 +1,16 @@
 package com.martinb.carboncore.entities.transactions;
 
-public interface Transaction {
+public interface Transaction<T> {
 
-    String commit();
+    void setTransactionState(TransactionState transactionState);
+
+    String commit() throws Exception;
 
     boolean abort();
 
-    TransactionStatus status();
+    TransactionState state();
+
+    String generateTransactionId();
+
+    String getTransactionId();
 }

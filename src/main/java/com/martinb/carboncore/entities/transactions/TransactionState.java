@@ -1,6 +1,6 @@
 package com.martinb.carboncore.entities.transactions;
 
-public enum TransactionStatus {
+public enum TransactionState {
 
     DRAFT("draft"),
     COMMITTING("committing"),
@@ -10,7 +10,7 @@ public enum TransactionStatus {
 
     private final String id;
 
-    TransactionStatus(String id) {
+    TransactionState(String id) {
         this.id = id;
     }
 
